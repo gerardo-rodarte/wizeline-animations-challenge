@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.wizeline.academy.animations.databinding.DetailFragmentBinding
@@ -35,7 +36,12 @@ class DetailFragment : Fragment() {
     private fun goToMoreDetails() {
         val directions =
             DetailFragmentDirections.toMoreDetailsFragment(args.imageId, viewModel.contentIndex)
-        findNavController().navigate(directions)
+        val extras = FragmentNavigatorExtras(
+            binding.ivImageDetail to "more_details_image",
+            binding.tvTitle to "more_details_title",
+            binding.tvSubtitle to "more_details_content",
+        )
+        findNavController().navigate(directions, extras)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
